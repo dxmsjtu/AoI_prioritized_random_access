@@ -5,14 +5,14 @@ function Gmax = thresh_IRSA(x, px)
 if px(x == 0) > 0 
     Gmax = 0;
 else
-    coeff = sum(px.*x);         % derivative of the degree distribution evaluated at 1
+    coeff = sum(px.*x);           % derivative of the degree distribution evaluated at 1
     lambda_l = px.*x/coeff;     % probability that an edge is incident to a degree-l VN
 
-    f1 = @(y) sum(lambda_l.*y.^(x-1)); % edge perspective VN degree polynomial
-    f2 = @(y, G) exp( -G*coeff*(1-y)); % exp(G*(derivative at y))
+    f1 = @(y) sum(lambda_l.*y.^(x-1));  % edge perspective VN degree polynomial
+    f2 = @(y, G) exp( -G*coeff*(1-y));    % exp(G*(derivative at y))
 
     dp = 1e-3;
-    p = 0:dp:1;             % search for p in (0,1]
+    p = 0:dp:1;                  % search for p in (0,1]
     qk = zeros(size(p));    % edge perspective degree polynomial evaluated at p
     for k = 1:length(p)
        qk(k) =  f1(p(k));

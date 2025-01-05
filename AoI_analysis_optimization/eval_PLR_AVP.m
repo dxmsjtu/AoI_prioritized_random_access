@@ -1,19 +1,15 @@
 % Evaluate the packet loss rate (PLR) and age-violation probability (AVP) 
 % for a system with 2 classes of users operating according to IRSA
 %
-% [1] K.-H. Ngo, G. Durisi, and A. Graell i Amat, “Age of information in prioritized random access,” in
+% [1] K.-H. Ngo, G. Durisi, and A. Graell i Amat, Â“Age of information in prioritized random access,Â” in
 % 55th Asilomar Conference on Signals, Systems, and Computers, CA, USA, Oct. 2021.
-
-clear 
-close all
-
+clear  all; close all; 
 addpath(genpath('..'));
-
 %% PARAMETERS:
-U = 4000;                   % number of users
-nClass = 2;                 % number of classes
-pClass = [0.2 0.8];         % fraction of users in each class
-peakAge = [7.5e4 4.5e4];    % AoI thresholds
+U = 4000;                         % number of users
+nClass = 2;                       % number of classes
+pClass = [0.2 0.8];            % fraction of users in each class
+peakAge = [7.5e4 4.5e4]; % AoI thresholds
 
 % Degree distribution
 x = [1 2 3];
@@ -22,7 +18,6 @@ px = [0 .5 .5;
 x(sum(px) == 0) = [];
 px(:,sum(px) == 0) = [];
 px = bsxfun(@rdivide,px,sum(px,2));
-
 % Average degree distribution and the decoding threshold
 px_avg = pClass*px;
 thres = thresh_IRSA(x, px_avg);
@@ -53,7 +48,6 @@ AVP_DE = zeros(nClass,length(G_set),length(M_set));
     
 for idxG = 1:length(G_set)    
 G = G_set(idxG)
-
 % set the number of Monte-Carlo iterations
 if G < 0.5         % fewer iterations if the channel load is low
     N_rep = 1e3;

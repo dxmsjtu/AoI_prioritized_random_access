@@ -1,15 +1,13 @@
 function PLR = PLR_simulation_2(pClass,x,px,M,U,pktReadyProb,N_rep,iter_max)
-% function PLR = PLR_simulation_2(pClass,x,px,M,U,pktReadyProb,N_rep,iter_max)
+% function PLR = PLR_simulation_2(pClass,x,px,M,U,pktReadyProb,N_rep,iter_max) 
 % Compute by simulation the PLR of IRSA for a system with K user classes
-%
 % Different from PLR_simulation(), here we allow for degree 0.
-%
 % INPUTS:
 %   classDist : fraction of users in each class (set to be 1 if there is one class)
-%   x, px     : degree distribution from VN (user) perspective 
+%   x, px        : degree distribution from VN (user) perspective 
 %                   (x: degrees, px (K rows): corresponding probability)
-%   M         : frame length (#slots)
-%   U         : number of users 
+%   M            : frame length (#slots)
+%   U            : number of users 
 %   pktReadyProb : probability that a user has a new packet in a frame
 %   N_rep     : number of Monte-Carlo iterations
 %   iter_max  : maximum number of decoding iterations
@@ -20,7 +18,6 @@ function PLR = PLR_simulation_2(pClass,x,px,M,U,pktReadyProb,N_rep,iter_max)
 if numel(pktReadyProb) == 1
     pktReadyProb = pktReadyProb*ones(length(pClass),1);
 end
-
 x(sum(px) == 0) = [];
 px(:,sum(px) == 0) = [];
 
@@ -48,7 +45,8 @@ for idxG = 1:length(G_set)
     decoded_G = zeros(length(x),1);
     transmitted_G = zeros(length(x),1);
     
-    parfor kkkk = 1:N_rep
+   % parfor kkkk = 1:N_rep
+  for kkkk = 1:N_rep
         % IRSA encoding and decoding
         [H, L, ptrs] = IRSA_encode(G, M, x, px_avg,[],'poisson');
         [~, DECODED] = IRSA_decode(H, L, ptrs, iter_max);
